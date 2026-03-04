@@ -20,7 +20,7 @@ A project template for running applied research with Claude Code agents on SLURM
 
 ```bash
 # Clone the template
-git clone https://github.com/matthias-k/agentic-research-template.git
+git clone https://github.com/mkeicher/agentic-research-template.git
 cd agentic-research-template
 
 # Initialize a new project (interactive)
