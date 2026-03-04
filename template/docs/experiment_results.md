@@ -1,4 +1,4 @@
-# Experiment Results — {{PROJECT_NAME}}
+# Experiment Results — [Project Name]
 
 ## Completed Experiments
 
@@ -6,8 +6,8 @@
 
 ### Wave 0: Baseline Evaluation (TODO)
 
-| Condition | {{PRIMARY_METRIC}} | Notes |
-|-----------|-----|-------|
+| Condition | [Primary Metric] | Notes |
+|-----------|-------------------|-------|
 | Baseline 1 | — | |
 | Baseline 2 | — | |
 

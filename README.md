@@ -1,6 +1,6 @@
 # agentic-research-template
 
-A project template for running applied research with Claude Code agents on SLURM/HPC clusters. Distilled from 80+ sessions of battle-tested patterns on a real research project.
+A project template for running applied research with AI coding agents (Claude Code, Gemini, Codex) on SLURM/HPC clusters. Distilled from 80+ sessions of battle-tested patterns on a real research project.
 
 **This is a methodology, not just scaffolding.** The template encodes workflows for session-based development, multi-agent coordination, AI council reviews, quality gates, structured experiment tracking, and mandatory documentation that actually stays current.
 
@@ -18,33 +18,39 @@ A project template for running applied research with Claude Code agents on SLURM
 
 ## Quick Start
 
+The template is initialized by an AI agent — not a Python script. The agent reads the template files as examples, asks about your project, and writes tailored files.
+
+### 1. Clone the template
+
 ```bash
-# Clone the template
-git clone https://github.com/mkeicher/agentic-research-template.git
-cd agentic-research-template
-
-# Initialize a new project (interactive)
-python init.py --output ~/dev/my-research-project
-
-# Or use a config file
-python init.py --config init_config.example.json --output ~/dev/my-research-project
-
-# Set up the new project
-cd ~/dev/my-research-project
-git init && git add -A && git commit -m "Initial scaffold"
-uv venv --python 3.11 && uv sync
+git clone https://github.com/mkeicher/agentic-research-template.git /tmp/agentic-research-template
 ```
 
-The initializer prompts for ~20 values (project name, data paths, cluster config, etc.) and renders all templates. No dependencies beyond Python stdlib.
+### 2. Create your project
 
-### Post-Init Checklist
+```bash
+mkdir -p ~/dev/my-project && cd ~/dev/my-project && git init
+```
 
-1. **Review and customize `CLAUDE.md`** — the core of the template. Adjust sections marked TODO.
-2. **Copy global rules** — `global_claude_md/CLAUDE.md` → `~/.claude/CLAUDE.md` (optional but recommended for shared clusters).
-3. **Set up SLURM preamble** — review `jobs/PREAMBLE.sh` for your cluster's specifics.
-4. **Define your research strategy** — fill in `docs/research_strategy.md`.
-5. **Map your paper** — sketch tables in `results/results_scaffold.md`.
-6. **Start a Claude Code session** and begin working!
+### 3. Start a Claude Code session and paste the setup prompt
+
+Open Claude Code (or your preferred AI coding agent) in the new directory and paste the prompt from [`SETUP.md`](SETUP.md). The agent will:
+
+1. Read all template files to understand the structure and conventions
+2. Ask you ~8-10 questions about your project (name, domain, cluster setup, tools, etc.)
+3. Write all project files with content tailored to your specific project
+4. Commit the scaffold
+
+**Why an agent instead of a script?** An agent can adapt intelligently — omitting irrelevant sections, rewriting for your domain, adding project-specific content the template doesn't anticipate. A mechanical `{{PLACEHOLDER}}` system can only do find-and-replace.
+
+### 4. Post-setup checklist
+
+1. Review `CLAUDE.md` — the most important file. Adjust as needed.
+2. Copy `global_claude_md/CLAUDE.md` → `~/.claude/CLAUDE.md` (recommended for shared clusters)
+3. Review `jobs/PREAMBLE.sh` for your cluster's specifics
+4. Fill in `docs/research_strategy.md`
+5. Sketch paper tables in `results/results_scaffold.md`
+6. Start working!
 
 ## Key Concepts
 
@@ -89,7 +95,7 @@ For research pivots, contradictory results, or architecture decisions:
 5. **Approved proposal** — user picks one
 6. **Report to council** — post-implementation evidence report
 
-See `docs/research_strategy/README.md` in the generated project.
+See `docs/research_strategy/README.md` in the generated project, and `examples/council_report_example.md` for a real example.
 
 ### Quality Gates & SOPs
 
@@ -103,7 +109,7 @@ Pipelines have explicit checkpoints:
 - FAIL → investigate and iterate
 ```
 
-HALT conditions prevent runaway iteration. SOPs document the full pipeline with failure modes.
+HALT conditions prevent runaway iteration. See `examples/sop_example.md`.
 
 ### Session Wrap-Up Protocol
 
@@ -117,8 +123,6 @@ At the end of every session, the agent must:
 6. Push to origin
 7. Print session summary
 
-This is enforced by the CLAUDE.md instructions — agents that skip steps get called out.
-
 ### Experiment Waves
 
 Experiments are organized in numbered waves:
@@ -129,23 +133,22 @@ Experiments are organized in numbered waves:
 
 Each wave has a hypothesis, go/no-go gate, and maps to entries in `results/results_scaffold.md`.
 
-## Directory Structure
+## Repository Structure
 
 ```
 agentic-research-template/
 ├── README.md                     # This file
+├── SETUP.md                      # Prompt for AI agent to initialize a new project
 ├── LICENSE                       # MIT
-├── init.py                       # Project initializer (stdlib only)
-├── init_config.example.json      # Example config for non-interactive init
 │
-├── template/                     # Everything here gets copied + rendered
-│   ├── CLAUDE.md                 # The core — agent instructions with {{PLACEHOLDERS}}
-│   ├── README.md                 # Project README template
+├── template/                     # Reference files the agent reads during setup
+│   ├── CLAUDE.md                 # Agent instructions — the core template
+│   ├── README.md                 # Project README reference
 │   ├── CHANGELOG.md              # Pre-populated with Session 0
-│   ├── pyproject.toml            # Python project config
+│   ├── pyproject.toml            # Python project config reference
 │   ├── .gitignore
-│   ├── global_claude_md/         # Template for ~/.claude/CLAUDE.md
-│   ├── global_memory/            # Template for agent memory
+│   ├── global_claude_md/         # Reference for ~/.claude/CLAUDE.md
+│   ├── global_memory/            # Reference for agent memory
 │   ├── src/{{PACKAGE_NAME}}/     # Source package skeleton
 │   ├── scripts/                  # CLI entry points
 │   ├── tests/                    # Test infrastructure
@@ -156,20 +159,16 @@ agentic-research-template/
 │   └── .context/                 # Read-only reference directory
 │
 └── examples/                     # Anonymized real-world examples
-    ├── council_report_example.md
-    ├── sop_example.md
-    └── decisions_log_example.md
+    ├── council_report_example.md # AI council review with evidence tables
+    ├── sop_example.md            # Pipeline SOP with quality gates
+    └── decisions_log_example.md  # Chronological decision log
 ```
 
 ## Customization
 
-### Adding Sections to CLAUDE.md
+### Using with Other AI Agents
 
-The template uses `{{PLACEHOLDER}}` syntax for simple substitution and `{{#IF KEY}} ... {{/IF KEY}}` for conditional blocks. To add new conditional sections:
-
-1. Add a new key to the config (e.g., `"my_feature_enabled": true`)
-2. Wrap content in `{{#IF MY_FEATURE_ENABLED}} ... {{/IF MY_FEATURE_ENABLED}}`
-3. The block renders only if the key is truthy (non-empty string)
+The `SETUP.md` prompt is written for Claude Code but works with any capable coding agent (Gemini, Codex, Cursor, etc.). The template files in `template/` are plain markdown and Python — any agent that can read files and write new ones can do the initialization.
 
 ### Adapting for Non-SLURM Environments
 
@@ -180,10 +179,7 @@ The template assumes SLURM. For other environments:
 
 ### Scaling Agent Count
 
-The Agent Board starts with 3 rows. For larger teams:
-- Add rows as needed
-- Consider splitting `CLAUDE.md` if it exceeds ~500 lines
-- Use `docs/` for detailed agent-specific context
+The Agent Board starts with 3 rows. Add rows as needed for larger teams. Consider splitting `CLAUDE.md` if it exceeds ~500 lines.
 
 ## What This Template Does NOT Do
 

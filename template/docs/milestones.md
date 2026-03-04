@@ -1,4 +1,4 @@
-# Milestones — {{PROJECT_NAME}}
+# Milestones — [Project Name]
 
 Detailed checklist for each milestone. Update status symbols as work progresses:
 - ⬜ Not started
@@ -9,7 +9,7 @@ Detailed checklist for each milestone. Update status symbols as work progresses:
 
 ## M0: Project Setup & Alignment ✅
 
-- ✅ Repository structure created ({{DATE_TODAY}})
+- ✅ Repository structure created
 - ✅ Dependencies configured in `pyproject.toml`
 - ✅ `CLAUDE.md` initialized with project context
 - ⬜ Cluster access verified (data paths, GPU allocation)
@@ -18,8 +18,8 @@ Detailed checklist for each milestone. Update status symbols as work progresses:
 
 ## M1: Evaluation Pipeline ⬜
 
-- ⬜ Define evaluation metrics (primary: {{PRIMARY_METRIC}})
-- ⬜ Implement metric computation in `src/{{PACKAGE_NAME}}/eval/`
+- ⬜ Define evaluation metrics (primary: [your metric])
+- ⬜ Implement metric computation in `src/[package]/eval/`
 - ⬜ Create evaluation script (`scripts/eval.py`)
 - ⬜ Benchmark baseline model(s)
 - ⬜ Evaluation results in `docs/experiment_results.md`

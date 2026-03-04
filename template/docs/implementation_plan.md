@@ -1,4 +1,4 @@
-# Implementation Plan — {{PROJECT_NAME}}
+# Implementation Plan — [Project Name]
 
 ## Overview
 
@@ -39,7 +39,7 @@ TODO — Define the phased implementation plan for this project. Each phase shou
 - [ ] Ablation study
 - [ ] Comparison with baselines
 
-**Gate:** Method meets or exceeds baseline on {{PRIMARY_METRIC}}.
+**Gate:** Method meets or exceeds baseline on primary metric.
 
 ## Phase 4: Refinement
 

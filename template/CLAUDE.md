@@ -1,20 +1,25 @@
-# CLAUDE.md — {{PROJECT_NAME}}
+# CLAUDE.md — [Project Name]
+
+<!-- TEMPLATE NOTE: This is a reference example. An AI agent reads this to understand
+     the structure and conventions, then writes a project-specific version.
+     Sections marked [CUSTOMIZE] need project-specific content.
+     Sections marked [CONDITIONAL] should be included only if relevant. -->
 
 ## Project Overview
 
-{{PROJECT_DESCRIPTION}}
+[CUSTOMIZE: One-paragraph project description. What it does, what domain, what approach.]
 
 **Current phase:** Project setup complete. Initial scaffold generated. Ready for first research session.
 
-**Branding:** Externally (README, papers, communication) this project is "{{EXTERNAL_NAME}}".
+**Branding:** Externally (README, papers, communication) this project is "[External Name]".
 
 ## Repository Structure
 
 ```
-{{PACKAGE_NAME}}/
+[package_name]/
 ├── pyproject.toml
 ├── CHANGELOG.md         # Session-by-session development log
-├── src/{{PACKAGE_NAME}}/
+├── src/[package_name]/
 │   ├── config/          # Dataclass configs
 │   ├── data/            # Dataset, collator, transforms, loader
 │   ├── models/          # Encoders, adapters, model subclasses
@@ -34,9 +39,7 @@
 - **Working on:** Session 0: Project scaffold initialized. No code written yet.
 - **Strategic context:** TODO — define initial research questions in `docs/research_strategy.md`
 - **Key decisions:** See [`docs/decisions_log.md`](docs/decisions_log.md)
-{{#IF BASE_MODEL}}
-- **Base model:** `{{BASE_MODEL}}`
-{{/IF BASE_MODEL}}
+- **Base model:** [CUSTOMIZE: e.g., `Qwen/Qwen3-VL-8B-Instruct`] <!-- [CONDITIONAL: only if applicable] -->
 - **Known issues:** None yet.
 - **Experiment results:** See [`docs/experiment_results.md`](docs/experiment_results.md)
 - **Data artifacts:** See [`docs/data_artifacts.md`](docs/data_artifacts.md)
@@ -62,7 +65,7 @@ Full history and completed experiments in [`docs/experiment_results.md`](docs/ex
 
 ### Wave 0: Baseline Evaluation (TODO)
 
-Define your first set of experiments here. Each wave should have:
+[CUSTOMIZE: Define your first set of experiments. Each wave should have:]
 - Clear hypothesis
 - Go/no-go gate with measurable threshold
 - Expected outputs and where they land in `results/`
@@ -80,7 +83,7 @@ High-level milestones. Detailed tracking in [Reference Documents](#reference-doc
 | # | Milestone | Status | Target | Key Deliverable |
 |---|-----------|--------|--------|-----------------|
 | M0 | Project Setup & Alignment | ✅ | Week 1 | Repo structure, dependencies, cluster access |
-| M1 | Evaluation Pipeline | ⬜ | Weeks 2–4 | Benchmark baselines, define {{PRIMARY_METRIC}} |
+| M1 | Evaluation Pipeline | ⬜ | Weeks 2–4 | Benchmark baselines, define primary metric |
 | M2 | Initial Training & Ablations | ⬜ | Weeks 4–8 | First training runs, ablation results |
 | M3 | Method Improvement | ⬜ | Weeks 8–14 | Core method implementation |
 | M4 | Refinement & Analysis | ⬜ | Weeks 14–20 | Ablations, error analysis, final method |
@@ -106,15 +109,14 @@ High-level milestones. Detailed tracking in [Reference Documents](#reference-doc
 - **Push at session end** — always ask for confirmation first.
 - Atomic commits. Run linting + tests before every commit. Do not commit broken code.
 
-{{#IF FRAMEWORK_RULES_ENABLED}}
-### {{FRAMEWORK_NAME}} Usage
-{{FRAMEWORK_RULES}}
-{{/IF FRAMEWORK_RULES_ENABLED}}
+### [Framework Name] Usage
+<!-- [CONDITIONAL: Include only if the project has a core framework with specific rules] -->
+[CUSTOMIZE: e.g., "Prefer the official `merlin-vlm` package. Never reimplement the architecture from scratch."]
 
 ### Code Standards
-- Python {{PYTHON_VERSION}}+. Type hints on all function signatures.
+- Python 3.11+. Type hints on all function signatures.
 - Use `ruff` for linting and formatting (config in `pyproject.toml`).
-- No hardcoded paths. All data paths via `{{DATA_ROOT_VAR}}` env var or CLI args.
+- No hardcoded paths. All data paths via environment variable or CLI args.
 - No monkey-patching. Proper subclassing only.
 - Docstrings on all public functions (Google style).
 - No use of `Any` type hints as a shortcut. Be specific.
@@ -191,18 +193,17 @@ Every job script in `jobs/` must have: descriptive filename, `#SBATCH` headers (
 
 ## Technical Environment
 
-{{#IF BASE_MODEL}}
-**Base model:** `{{BASE_MODEL}}`
-{{/IF BASE_MODEL}}
-**Primary metric:** {{PRIMARY_METRIC}}
-**Per-user GPU limit:** {{GPU_COUNT_PER_USER}} GPUs
+<!-- [CUSTOMIZE: Fill in your specific setup] -->
+**Base model:** [e.g., `Qwen/Qwen3-VL-8B-Instruct`]
+**Primary metric:** [e.g., macro F1]
+**Per-user GPU limit:** [e.g., 4] GPUs
 
 **Execution environments:**
 - **SLURM cluster:** All batch experiments via `sbatch`. Job scripts in `jobs/`.
 - **Local dev:** Quick debugging, single-sample inference, tests.
 - **CPU-only:** Tests and linting only.
 
-**Do not verify environment setup.** Dependencies installed, data at `${{DATA_ROOT_VAR}}`. UV is the sole package manager (`uv sync`). New dependencies → edit `pyproject.toml` + `uv sync`. See `README.md` for setup.
+**Do not verify environment setup.** Dependencies installed, data at `$DATA_ROOT`. UV is the sole package manager (`uv sync`). New dependencies → edit `pyproject.toml` + `uv sync`. See `README.md` for setup.
 
 **Code portability:** Tests run on CPU with synthetic data. Never silently fail on CPU.
 
@@ -213,8 +214,6 @@ Login nodes are shared. **All non-trivial compute → SLURM.**
 **Allowed:** file inspection, git, `uv sync`/`ruff`/`pytest`, SLURM commands (`sbatch`/`squeue`/`sacct`/`scancel`), quick `python -c`, `curl`.
 **Must use SLURM:** API calls, full dataset processing, GPU workloads, anything > ~2 minutes.
 
-**GPU limit:** The default per-user GPU limit is **{{GPU_COUNT_PER_USER}} GPUs** concurrently. Plan job submissions accordingly.
-
 **Resource sizing:** `gpu:0` for CPU jobs · `gpu:1` only for model loading · `--cpus-per-task` matched to parallelism · `168:00:00` default time.
 
 **Ad-hoc jobs** (without a permanent script):
@@ -224,7 +223,7 @@ sbatch --job-name=quick-task --output=results/quick_%j.log \
   --partition=part-1 \
   --wrap='
 source ~/.bashrc 2>/dev/null || true
-export {{DATA_ROOT_VAR}}="${{{DATA_ROOT_VAR}}:-{{DATA_ROOT_DEFAULT}}}"
+export DATA_ROOT="${DATA_ROOT:-/path/to/data}"
 cd '"$(pwd)"' && source .venv/bin/activate
 export SSL_CERT_FILE="$(python -c "import certifi; print(certifi.where())" 2>/dev/null || echo "")"
 python scripts/my_script.py ...
@@ -249,51 +248,44 @@ TODO — Define your research strategy in [`docs/research_strategy.md`](docs/res
 
 ## Dataset
 
-{{#IF DATA_DESCRIPTION}}
-{{DATA_DESCRIPTION}}
-{{/IF DATA_DESCRIPTION}}
+<!-- [CUSTOMIZE: Describe your dataset structure] -->
+[Brief description of the dataset.]
 
-Data at `${{DATA_ROOT_VAR}}` (default: `{{DATA_ROOT_DEFAULT}}`).
+Data at `$DATA_ROOT` (default: `/path/to/data`).
 
-TODO — Document your dataset structure here:
 ```
-${{DATA_ROOT_VAR}}/
+$DATA_ROOT/
 ├── ...                  # Add your data layout
 ```
 
 ### Data Loading Rules
-- No hardcoded paths. All data paths via `{{DATA_ROOT_VAR}}` env var or CLI args.
+- No hardcoded paths. All data paths via env var or CLI args.
 - Use official train/val/test splits. Never reshuffle.
 
 ## Environment Variables
 
+<!-- [CUSTOMIZE: List your project's env vars] -->
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `{{DATA_ROOT_VAR}}` | Root directory for dataset | `{{DATA_ROOT_DEFAULT}}` |
-{{#IF JUDGE_API_ENABLED}}
-| `JUDGE_API_BASE` | LLM judge API endpoint | `{{JUDGE_API_DEFAULT}}` |
-| `JUDGE_API_KEY` | API key for judge | *(configured in shell)* |
-| `JUDGE_MODEL` | Judge model name | `{{JUDGE_MODEL}}` |
-{{/IF JUDGE_API_ENABLED}}
-{{#IF WANDB_ENABLED}}
-| `WANDB_PROJECT` | W&B project name | `{{WANDB_PROJECT}}` |
-{{/IF WANDB_ENABLED}}
+| `DATA_ROOT` | Root directory for dataset | `/path/to/data` |
 
-**Shell expansion caveat (CRITICAL):** The Bash tool starts a fresh shell. Env vars may NOT expand. **Always use hardcoded paths in Bash tool calls:**
-- `{{DATA_ROOT_VAR}}` → `{{DATA_ROOT_DEFAULT}}`
+<!-- [CONDITIONAL: Include if using judge API] -->
+| `JUDGE_API_BASE` | LLM judge API endpoint | `http://localhost:8267/v1` |
+| `JUDGE_MODEL` | Judge model name | `qwen3-32b-awq` |
+
+<!-- [CONDITIONAL: Include if using W&B] -->
+| `WANDB_PROJECT` | W&B project name | `my-project` |
+
+**Shell expansion caveat (CRITICAL):** The Bash tool starts a fresh shell. Env vars may NOT expand. **Always use hardcoded paths in Bash tool calls.**
 
 Env var references are fine in SLURM job scripts and Python code — just not in interactive Bash tool commands.
 
-{{#IF WANDB_ENABLED}}
 ## W&B Experiment Tracking
+<!-- [CONDITIONAL: Include only if using W&B] -->
 
 | Project | Phase | Description |
 |---------|-------|-------------|
-| `{{WANDB_PROJECT}}` | M1+ | All experiment runs |
-
-Run names: `{task}__{model}__P-{tune}_L-{tune}_V-{tune}`
-
-{{/IF WANDB_ENABLED}}
+| `my-project` | M1+ | All experiment runs |
 
 ## Documentation Standards
 - **README.md** — single source of truth for setup, usage, project overview. Update with every feature.
@@ -318,4 +310,4 @@ Run names: `{task}__{model}__P-{tune}_L-{tune}_V-{tune}`
 
 **Read-only reference (`.context/`):**
 - Add external documentation, paper summaries, reference implementations here.
-- These files are for Claude Code context only — never modify them programmatically.
+- These files are for agent context only — never modify them programmatically.

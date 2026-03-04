@@ -1,11 +1,11 @@
-# Results Scaffold — {{PROJECT_NAME}}
+# Results Scaffold — [Project Name]
 
 Maps paper tables/figures to code outputs. **Every piece of code should trace back to an entry here.**
 
 ## Table 1: Baseline Comparison
 
-| Method | {{PRIMARY_METRIC}} | Notes |
-|--------|-----|-------|
+| Method | [Primary Metric] | Notes |
+|--------|-------------------|-------|
 | *Baseline 1* | — | `results/baseline_1/` |
 | *Baseline 2* | — | `results/baseline_2/` |
 | *Ours* | — | `results/ours/` |
@@ -15,8 +15,8 @@ Maps paper tables/figures to code outputs. **Every piece of code should trace ba
 
 ## Table 2: Ablation Study
 
-| Ablation | {{PRIMARY_METRIC}} | Delta | Notes |
-|----------|-----|-------|-------|
+| Ablation | [Primary Metric] | Delta | Notes |
+|----------|-------------------|-------|-------|
 | *Full method* | — | — | |
 | *- Component A* | — | — | |
 | *- Component B* | — | — | |

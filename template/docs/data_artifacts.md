@@ -1,4 +1,4 @@
-# Data Artifacts — {{PROJECT_NAME}}
+# Data Artifacts — [Project Name]
 
 Versioned data files, precomputed features, and result directories used by the project.
 

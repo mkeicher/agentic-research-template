@@ -1,6 +1,6 @@
 # Cluster Run: Initial Setup
 
-**Date:** {{DATE_TODAY}}
+**Date:** [Today's Date]
 **Branch:** `main`
 **Status:** Not yet ready — no GPU jobs to run
 
@@ -11,7 +11,7 @@ Project scaffold has been initialized. No GPU workloads to execute yet.
 ## Prerequisites
 
 - [ ] `uv sync` completed on cluster
-- [ ] `{{DATA_ROOT_VAR}}` points to dataset directory
+- [ ] Data root env var points to dataset directory
 - [ ] Data files accessible and verified
 
 ## Jobs to Run

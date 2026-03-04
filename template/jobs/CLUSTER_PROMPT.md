@@ -5,7 +5,7 @@ Copy-paste this into a new Claude Code session when you need to run GPU workload
 ---
 
 ```
-I need to run GPU jobs on the cluster for {{PROJECT_NAME}}.
+I need to run GPU jobs on the cluster for [Project Name].
 
 Current state:
 - Branch: `main`
@@ -21,7 +21,7 @@ Tasks:
 
 Important:
 - Never run GPU work on the login node
-- GPU limit: {{GPU_COUNT_PER_USER}} per user
+- GPU limit: [N] per user
 - Use `--time=7-00:00:00` for time limits
 - Check `squeue` before submitting to stay within GPU cap
 ```

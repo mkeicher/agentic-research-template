@@ -1,4 +1,4 @@
-# Research Strategy — {{PROJECT_NAME}}
+# Research Strategy — [Project Name]
 
 ## Research Questions
 
@@ -14,7 +14,7 @@ For each research question, state a testable hypothesis:
 
 | RQ | Hypothesis | How to Test | Success Criterion |
 |----|-----------|-------------|-------------------|
-| RQ1 | ... | ... | {{PRIMARY_METRIC}} > X.XX |
+| RQ1 | ... | ... | [metric] > X.XX |
 | RQ2 | ... | ... | ... |
 
 ## Experiment Design

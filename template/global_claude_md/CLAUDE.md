@@ -1,5 +1,8 @@
 # ~/.claude/CLAUDE.md — Global Cluster Rules
 
+<!-- TEMPLATE NOTE: This file goes in ~/.claude/CLAUDE.md to apply to ALL projects.
+     Customize the paths and limits for your specific cluster. -->
+
 This file applies to ALL projects and sessions on this shared SLURM cluster.
 These rules are NON-NEGOTIABLE and override any project-level instructions that conflict.
 
@@ -14,7 +17,8 @@ You are operating on a shared HPC cluster. Other users' work and system stabilit
 - SLURM output logs in the repo's `results/` or `jobs/` directories
 
 **Read-only (never write, rename, or delete):**
-- `${{DATA_ROOT_VAR}}` and any shared dataset directories under `{{SHARED_DATA_DIR}}`
+- `$DATA_ROOT` and any shared dataset directories under `/home/data/`
+  <!-- [CUSTOMIZE: your shared data paths] -->
 - Other users' home directories
 - Anything outside `$HOME/`
 
@@ -58,7 +62,8 @@ The only exception: files created during the CURRENT session that are clearly te
 - **Never interfere with jobs from other projects.** Jobs submitted under this user account from a different project/repo are off-limits — do not cancel, modify, requeue, or deprioritize them. Treat them as belonging to another user.
 - Never modify SLURM configuration or queue settings.
 - Right-size resource requests: don't request GPUs for CPU-only work.
-- **Per-user GPU limit is typically {{GPU_COUNT_PER_USER}} GPUs.** Plan job submissions to stay within this cap.
+- **Per-user GPU limit is typically 4 GPUs.** Plan job submissions to stay within this cap.
+  <!-- [CUSTOMIZE: your GPU limit] -->
 - **Set generous SLURM time limits.** Re-running a timed-out job wastes far more time than a generous limit. Default to `--time=7-00:00:00` (7 days). Jobs terminate on completion or failure anyway; the user will manually cancel stuck jobs. Never try to fit multiple independent workloads into one job — submit them as separate parallel jobs instead.
 - Always include `set -euo pipefail` in job scripts so failures are caught.
 

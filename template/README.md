@@ -1,37 +1,31 @@
-# {{EXTERNAL_NAME}}
+# [Project Name]
 
-{{PROJECT_DESCRIPTION}}
+[CUSTOMIZE: One-paragraph project description.]
 
 ## Setup
 
 ### Prerequisites
-- Python {{PYTHON_VERSION}}+
+- Python 3.11+
 - [uv](https://github.com/astral-sh/uv) for package management
 - Access to SLURM cluster (for GPU workloads)
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/{{GITHUB_USERNAME}}/{{PACKAGE_NAME}}.git
-cd {{PACKAGE_NAME}}
+git clone https://github.com/[username]/[repo].git
+cd [repo]
 
-# Create virtual environment and install dependencies
-uv venv --python {{PYTHON_VERSION}}
+uv venv --python 3.11
 uv sync
-
-# Install dev dependencies
 uv sync --group dev
 ```
 
 ### Environment Variables
 
+<!-- [CUSTOMIZE: List your project's env vars] -->
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `{{DATA_ROOT_VAR}}` | Root directory for dataset | `{{DATA_ROOT_DEFAULT}}` |
-{{#IF WANDB_ENABLED}}
-| `WANDB_PROJECT` | W&B project name | `{{WANDB_PROJECT}}` |
-{{/IF WANDB_ENABLED}}
+| `DATA_ROOT` | Root directory for dataset | `/path/to/data` |
 
 ## Usage
 
@@ -53,31 +47,26 @@ uv run ruff format --check src/ tests/
 All GPU workloads run via SLURM. Job scripts are in `jobs/`.
 
 ```bash
-# Submit a job
 sbatch jobs/<script_name>.sh
-
-# Check job status
 squeue -u $USER
-
-# View output
 tail -f results/<job_output>.log
 ```
 
 ## Project Structure
 
 ```
-├── src/{{PACKAGE_NAME}}/    # Main package
-│   ├── config/              # Configuration dataclasses
-│   ├── data/                # Data loading and transforms
-│   ├── models/              # Model definitions
-│   ├── eval/                # Evaluation metrics
-│   └── utils/               # Utilities
-├── scripts/                 # CLI entry points
-├── jobs/                    # SLURM job scripts
-├── tests/                   # Test suite
-├── data/                    # Local data files
-├── results/                 # Experiment outputs
-└── docs/                    # Documentation
+├── src/[package]/       # Main package
+│   ├── config/          # Configuration dataclasses
+│   ├── data/            # Data loading and transforms
+│   ├── models/          # Model definitions
+│   ├── eval/            # Evaluation metrics
+│   └── utils/           # Utilities
+├── scripts/             # CLI entry points
+├── jobs/                # SLURM job scripts
+├── tests/               # Test suite
+├── data/                # Local data files
+├── results/             # Experiment outputs
+└── docs/                # Documentation
 ```
 
 ## Roadmap

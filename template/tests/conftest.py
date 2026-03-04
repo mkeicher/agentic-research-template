@@ -1,8 +1,6 @@
-"""Shared test fixtures for {{PACKAGE_NAME}}."""
+"""Shared test fixtures."""
 
 from __future__ import annotations
-
-import os
 
 import pytest
 
@@ -18,4 +16,5 @@ def data_root(tmp_path):
 @pytest.fixture(autouse=True)
 def _isolate_env(monkeypatch, tmp_path):
     """Ensure tests don't depend on real environment variables."""
-    monkeypatch.setenv("{{DATA_ROOT_VAR}}", str(tmp_path / "data"))
+    # [CUSTOMIZE: Use your project's data root env var name]
+    monkeypatch.setenv("DATA_ROOT", str(tmp_path / "data"))

@@ -1,6 +1,6 @@
-# {{PROJECT_NAME}} Agent Memory
+# [Project Name] Agent Memory
 
-## Project State (updated {{DATE_TODAY}})
+## Project State (updated [today's date])
 
 - **Phase:** M0 — Project scaffold initialized
 - **Test count:** 0 passing
@@ -24,6 +24,6 @@
 
 ## Common Pitfalls
 
-- Shell env vars don't expand in Bash tool — use hardcoded paths (e.g., `{{DATA_ROOT_DEFAULT}}`)
+- Shell env vars don't expand in Bash tool — use hardcoded paths
 - Always run `ruff format` after edits
 - Val/test data paths may differ from train — verify before assuming
